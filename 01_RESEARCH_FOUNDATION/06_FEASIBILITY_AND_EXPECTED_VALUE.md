@@ -18,9 +18,9 @@ Official dataset có 54 flights và gồm Vicon position/orientation, actual mot
 
 Best role:
 
-\[
+$$
 U^{cmd}\rightarrow M^{actual}\rightarrow X.
-\]
+$$
 
 Đây là primary dataset cho actuator decomposition.
 
@@ -58,9 +58,9 @@ Datasets khác nhau ở coordinate frames, airframe, controller, sample rates, a
 
 Một tensor chung sẽ silently assume:
 
-\[
+$$
 U^{(A)}\equiv U^{(B)}
-\]
+$$
 
 và signal semantics tương đương, điều chưa được chứng minh.
 
@@ -100,13 +100,13 @@ Do real flight noisy, V1 không nên dùng numerical differentiation thô làm s
 
 ### EV-01 — Lower neural burden
 
-\[
+$$
 \text{canonicalization}
 +
 \text{explicit nominal dynamics}
 \Rightarrow
 \text{smaller residual network}
-\]
+$$
 
 là expectation cần test, không phải guarantee.
 
@@ -114,9 +114,9 @@ là expectation cần test, không phải guarantee.
 
 Explicit actuator model cho output có interpretation:
 
-\[
+$$
 \hat M(h),\quad T_{10},T_{50},T_{90}.
-\]
+$$
 
 ### EV-03 — Better generalization diagnosis
 
@@ -128,7 +128,7 @@ Uncertainty/support cho phép `SUPPORTED / BOUNDARY / OOD-ABSTAIN` thay vì alwa
 
 ### EV-05 — Better latency accounting
 
-\[
+$$
 H_{\text{usable}}
 =
 H_{\text{accurate}}
@@ -136,7 +136,7 @@ H_{\text{accurate}}
 \tau_{\text{pipeline}}
 -
 \tau_{\text{effect}}
-\]
+$$
 
 đưa compute/action delay vào model selection.
 
