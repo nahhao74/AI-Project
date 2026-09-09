@@ -14,22 +14,22 @@ Baseline ladder phải đại diện cho classical linear/system-ID, pure neural
 
 Ví dụ:
 
-$$
+```math
 \hat v_{t+h}=v_t,
 \qquad
 \hat p_{t+h}=p_t+h v_t.
-$$
+```
 
 ### B1 — MIMO VARX / linear state-space
 
-$$
+```math
 y_t=
 \sum_i A_i y_{t-i}
 +
 \sum_j B_j u_{t-j}
 +
 e_t.
-$$
+```
 
 Mục đích: xác định bao nhiêu dynamics giải được mà không cần deep learning.
 
@@ -63,33 +63,33 @@ Precedent từ hybrid RNN/NeuroBEM/PI-TCN [SRC-003](sources/SOURCE_REGISTRY.md#s
 
 ### A0 — Actual-actuator oracle
 
-$$
+```math
 (X_t,M^{actual}_{t:t+H})
 \rightarrow
 X_{future}.
-$$
+```
 
 Không deployable nếu future actual actuator chưa xảy ra. Purpose: upper-information reference.
 
 ### A1 — Direct command
 
-$$
+```math
 (X_t,U^{cmd}_{t:t+H})
 \rightarrow
 X_{future}.
-$$
+```
 
 Deployable input, nhưng actuator dynamics implicit.
 
 ### A2 — Proposed factorization
 
-$$
+```math
 U^{cmd}
 \rightarrow
 \hat M^{actual}
 \rightarrow
 \hat X.
-$$
+```
 
 Purpose: bridge oracle-actuation gap.
 
@@ -105,13 +105,13 @@ Evidence required: raw vs canonical ablation; fixed capacity comparison; reduced
 
 ## 5. Contribution candidate C2 — Actuation-aware Action-to-Effect World Model
 
-$$
+```math
 A_\phi:(H_t,U^{cmd})\rightarrow\hat M
-$$
+```
 
-$$
+```math
 F_\theta:(H_t,\hat M)\rightarrow\hat X.
-$$
+```
 
 Motor delays and temporal alignment matter [SRC-009](sources/SOURCE_REGISTRY.md#src-009), [SRC-010](sources/SOURCE_REGISTRY.md#src-010).
 
@@ -121,11 +121,11 @@ Evidence required: Pelican/VID actual-vs-command analysis; actuator trajectory p
 
 ## 6. Contribution candidate C3 — Explicit nominal dynamics + compact residual AI
 
-$$
+```math
 f=f_{nom}+r_\theta,
 \quad
 f_{nom}\in\{\text{VARX,SINDYc,weak/ensemble SINDy,local incremental}\}.
-$$
+```
 
 Hybrid modeling repeatedly works in literature [SRC-003](sources/SOURCE_REGISTRY.md#src-003), [SRC-006](sources/SOURCE_REGISTRY.md#src-006); sparse discovery may produce cheap interpretable dynamics [SRC-025](sources/SOURCE_REGISTRY.md#src-025).
 
@@ -155,9 +155,9 @@ selected backbone
 
 Output contract candidate:
 
-$$
+```math
 \{\hat X(h),\hat M(h),\Sigma(h),S(h)\}.
-$$
+```
 
 Metrics: RMSE/MAE/geodesic error, NLL, empirical coverage, OOD AUROC, error–coverage curve.
 
@@ -167,7 +167,7 @@ Metrics: RMSE/MAE/geodesic error, NLL, empirical coverage, OOD AUROC, error–co
 
 Working metric:
 
-$$
+```math
 H_{\text{usable}}
 =
 H_{\text{accurate}}
@@ -179,7 +179,7 @@ H_{\text{accurate}}
 \tau_{\text{infer}}
 -
 \tau_{\text{act/effect}}.
-$$
+```
 
 Đây là project-defined evaluation quantity. Trước khi dùng như formal contribution, Step 2 phải freeze $H_{accurate}$ definition, error threshold, latency measurement boundary và action-effect onset semantics.
 
@@ -191,11 +191,11 @@ Model cuối không nhất thiết có lowest RMSE.
 
 Một candidate $M_i$ bị dominated nếu tồn tại $M_j$:
 
-$$
+```math
 E_j\le E_i,\quad
 T_j\le T_i,\quad
 Mem_j\le Mem_i
-$$
+```
 
 với ít nhất một strict inequality.
 
