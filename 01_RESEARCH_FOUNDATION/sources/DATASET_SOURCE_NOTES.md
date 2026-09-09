@@ -24,11 +24,11 @@ Source: [SRC-020](SOURCE_REGISTRY.md#src-020)
 
 Có cặp:
 
-\[
+```math
 U^{cmd}
 \quad\text{và}\quad
 M^{actual}.
-\]
+```
 
 ### Primary hypotheses
 
@@ -108,13 +108,13 @@ Sources: [SRC-022](SOURCE_REGISTRY.md#src-022), [SRC-023](SOURCE_REGISTRY.md#src
 
 Strongest dataset for:
 
-\[
+```math
 \text{command/target}
 \rightarrow
 \text{actual actuator}
 \rightarrow
 \text{external force/state}.
-\]
+```
 
 ### Concern
 
