@@ -4,7 +4,7 @@
 
 Xây dựng và đánh giá một **real-flight low-level dynamics World Model** có đầu vào khả dụng ở runtime, dự đoán được action-to-effect evolution trong nhiều horizon, đồng thời tối ưu trade-off:
 
-$$
+```math
 \boxed{
 \text{prediction accuracy}
 +
@@ -16,7 +16,7 @@ $$
 +
 \text{reliability}
 }
-$$
+```
 
 Thành công của project không được định nghĩa bằng việc dùng architecture mới nhất.
 
@@ -42,17 +42,17 @@ Ví dụ $M^{actual}_{t+h}$ chỉ được dùng làm future input trong `oracle
 
 Mô hình hóa:
 
-$$
+```math
 U^{cmd}\rightarrow M^{actual}\rightarrow X.
-$$
+```
 
 ### OBJ-05 — Structured nominal + learned residual
 
 Đánh giá:
 
-$$
+```math
 f=f_{\text{explicit}}+r_\theta
-$$
+```
 
 với explicit candidates được chọn từ system identification/symbolic methods.
 
@@ -114,9 +114,9 @@ TCN [SRC-032](sources/SOURCE_REGISTRY.md#src-032), Mamba [SRC-014](sources/SOURC
 
 ### NC-03 — Không gọi residual là wind nếu không có wind ground truth
 
-$$
+```math
 r\neq W
-$$
+```
 
 trừ khi experiment/data contract cho phép inference đó.
 
