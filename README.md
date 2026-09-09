@@ -26,21 +26,21 @@ Các thuật toán đang xuất hiện trong tài liệu Step 1 chỉ là **evid
 
 Một World Model cho Physical AI có thể được hiểu là mô hình dự đoán sử dụng lịch sử quan sát và hành động để dự đoán trạng thái, quan sát hoặc đại lượng đủ hữu ích cho ra quyết định [SRC-001](01_RESEARCH_FOUNDATION/sources/SOURCE_REGISTRY.md#src-001). Trong phạm vi project này, formulation được thu hẹp xuống low-level UAV dynamics:
 
-\[
+$$
 \mathcal{M}_\theta:
 (H_t,\;U^{cmd}_{t:t+H})
 \mapsto
 (\hat X_{t+1:t+H},\;\hat M_{t+1:t+H},\;\Sigma,\;S)
-\]
+$$
 
 với:
 
-- \(H_t\): lịch sử causal của state, IMU, actuator và command;
-- \(U^{cmd}\): command hiện tại/tương lai nếu downstream planner biết trước;
-- \(\hat M\): diễn tiến actuator thực tế được dự đoán;
-- \(\hat X\): trạng thái UAV tương lai;
-- \(\Sigma\): uncertainty được hiệu chuẩn;
-- \(S\): support/OOD indicator.
+- $H_t$: lịch sử causal của state, IMU, actuator và command;
+- $U^{cmd}$: command hiện tại/tương lai nếu downstream planner biết trước;
+- $\hat M$: diễn tiến actuator thực tế được dự đoán;
+- $\hat X$: trạng thái UAV tương lai;
+- $\Sigma$: uncertainty được hiệu chuẩn;
+- $S$: support/OOD indicator.
 
 Project **không mặc định** rằng `command = physical actuation`, không mặc định rằng mọi residual là gió, và không mặc định rằng neural network phải học toàn bộ dynamics.
 
