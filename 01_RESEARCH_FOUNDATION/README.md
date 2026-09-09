@@ -1,6 +1,6 @@
 # Step 1 — Research Foundation
 
-**Research status:** `COMPLETE_V1`  
+**Research status:** `COMPLETE_V1.1`  
 **Evidence cutoff:** 2026-09-09  
 **Primary domain:** real-flight multirotor dynamics / learned world models / system identification / edge-aware prediction
 
@@ -57,24 +57,28 @@ Do đó metric trung tâm không thể chỉ là RMSE.
 
 Project nghiên cứu giả thuyết tổng quát:
 
-> **Một representation được canonicalize theo hình học, kết hợp explicit actuation-to-effect decomposition và một nominal/symbolic dynamics core rẻ, có thể giảm learning burden của temporal neural model; nếu residual model được chọn theo accuracy–latency Pareto và đi kèm uncertainty/support estimation, hệ thống có thể đạt prediction hữu ích hơn cho control so với pure neural state forecasting có complexity tương đương.**
+> **Một representation được canonicalize theo hình học, kết hợp explicit actuation-to-effect decomposition và một nominal/symbolic/reduced-order dynamics core rẻ, có thể giảm learning burden của temporal model; nếu phần residual được chọn theo accuracy–latency Pareto và đi kèm calibrated reliability/support, hệ thống có thể đạt prediction hữu ích hơn cho control so với pure neural state forecasting có complexity tương đương.**
 
 Đây là **hypothesis**, chưa phải conclusion.
 
 ## 4. Không freeze architecture trong Step 1
 
-Các candidate hiện tại:
+Candidate families hiện tại:
 
-- MIMO VARX;
+- MIMO VARX / EIV-aware TLS;
+- N4SID / ERA / Hankel-SVD order identification;
 - SINDYc / weak or ensemble SINDy;
+- Koopman / DMDc / delay-Hankel lifting;
 - INDI-inspired incremental features;
+- ESN/NGRC challenger;
 - causal TCN;
 - GRU;
 - Mamba/SSM;
 - HGDO/UIO-derived disturbance features;
-- blockwise whitening;
-- Mahalanobis support;
-- probabilistic output.
+- blockwise whitening / structured low-rank denoising;
+- Mahalanobis/kNN/low-dimensional convex-hull support;
+- probabilistic + conformal calibration;
+- structure-preserving residuals when the nominal model exposes useful analytic structure.
 
 Tất cả có trạng thái:
 
@@ -92,7 +96,7 @@ PROPOSED_FOR_EVALUATION
 4. current survey/review;
 5. arXiv preprint khi chưa có bản peer-reviewed hoặc để theo dõi frontier.
 
-Các paper có issue date sau ngày evidence cutoff nhưng đã available-online được đánh dấu rõ trong Source Registry; không dùng chúng để tạo claim “đã được real-flight validated” nếu paper chỉ simulation.
+Các paper có issue date sau ngày evidence cutoff nhưng đã available-online được đánh dấu rõ; không dùng chúng để tạo claim “đã được real-flight validated” nếu paper chỉ simulation.
 
 ## 6. Traceability
 
@@ -105,7 +109,12 @@ Các paper có issue date sau ngày evidence cutoff nhưng đã available-online
 | Scope | `05_OBJECTIVES_SCOPE_AND_NON_CLAIMS.md` |
 | Feasibility | `06_FEASIBILITY_AND_EXPECTED_VALUE.md` |
 | Candidate contributions | `07_BASELINE_AND_PROPOSED_CONTRIBUTIONS.md` |
+| Extended reduced-order/operator synthesis | `08_EXTENDED_RESEARCH_SYNTHESIS.md` |
 | Source identity | `sources/SOURCE_REGISTRY.md` |
 | Cross-paper comparison | `comparison/MODEL_COMPARISON_MATRIX.md` |
 | Data feasibility | `comparison/DATASET_COMPARISON_MATRIX.md` |
 | Gap→test mapping | `comparison/GAP_TO_CONTRIBUTION_MATRIX.md` |
+
+## 7. Completion boundary
+
+`COMPLETE_V1.1` means Step 1 is sufficiently complete to support experimental work. It does **not** mean the literature is permanently closed. New sources may be appended when they materially change a hypothesis, baseline or non-claim, but Step 1 is no longer a blocker for EXP-000.
