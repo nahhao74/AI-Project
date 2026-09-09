@@ -20,23 +20,23 @@ Representation hình học được canonicalize có làm learning problem đơn
 
 ### HYP-REP-01
 
-\[
+$$
 E(\text{canonical},P)
 <
 E(\text{raw},P)
-\]
+$$
 
-với cùng parameter budget \(P\), **hoặc**
+với cùng parameter budget $P$, **hoặc**
 
-\[
+$$
 P_{\text{canonical}}
 <
 P_{\text{raw}}
-\]
+$$
 
 at equivalent error.
 
-Candidate transforms: heading-relative translational frame; relative displacement/velocity; \(SO(3)\) relative rotation; quaternion log/exp representation; body gravity vector; motor-mode features.
+Candidate transforms: heading-relative translational frame; relative displacement/velocity; $SO(3)$ relative rotation; quaternion log/exp representation; body gravity vector; motor-mode features.
 
 ### Failure condition
 
@@ -50,21 +50,21 @@ Nếu canonicalization không cải thiện error/size/latency và tạo preproc
 
 Cho:
 
-\[
+$$
 \mathcal M_D:(X,U^{cmd})\rightarrow X_f
-\]
+$$
 
 và:
 
-\[
+$$
 \mathcal M_A:U^{cmd}\rightarrow\hat M^{actual}\rightarrow X_f,
-\]
+$$
 
 hypothesis là:
 
-\[
+$$
 E(\mathcal M_A)<E(\mathcal M_D)
-\]
+$$
 
 đặc biệt ở rotational/transient regimes.
 
@@ -72,27 +72,27 @@ E(\mathcal M_A)<E(\mathcal M_D)
 
 So với oracle:
 
-\[
+$$
 \mathcal M_O:(X,M^{actual}_{future})\rightarrow X_f,
-\]
+$$
 
 đo:
 
-\[
+$$
 R_{\text{recover}}
 =
 \frac{E_D-E_A}{E_D-E_O}.
-\]
+$$
 
-\(R_{\text{recover}}>0\) nghĩa explicit actuator model recover một phần oracle advantage bằng runtime-available command.
+$R_{\text{recover}}>0$ nghĩa explicit actuator model recover một phần oracle advantage bằng runtime-available command.
 
 ### HYP-ACT-03 — Timing
 
 Predicted actuator trajectory cho phép estimate response markers:
 
-\[
+$$
 T_{10},T_{50},T_{90}
-\]
+$$
 
 với error đủ nhỏ để cải thiện usable horizon.
 
@@ -104,28 +104,28 @@ với error đủ nhỏ để cải thiện usable horizon.
 
 Một explicit model:
 
-\[
+$$
 f_{nom}\in
 \{VARX,SINDYc,weak/ensemble\ SINDy,INDI\text{-inspired local map}\}
-\]
+$$
 
 giải thích measurable fraction của short-horizon dynamics.
 
 Metric candidates:
 
-\[
+$$
 R^2_{nom},
 \quad
 \frac{\mathbb E\|r\|^2}{\mathbb E\|\dot X\|^2}.
-\]
+$$
 
 ### HYP-NOM-02
 
 Hybrid:
 
-\[
+$$
 f=f_{nom}+r_\theta
-\]
+$$
 
 đạt same/better prediction với residual NN nhỏ hơn pure NN.
 
@@ -157,13 +157,13 @@ Không có hypothesis “Mamba sẽ tốt hơn”. Architecture selection là ou
 
 ### HYP-HOR-01
 
-Direct multi-horizon decoder giảm \(E(H)\) hoặc total inference time so với iterative autoregressive rollout ở same requested horizons.
+Direct multi-horizon decoder giảm $E(H)$ hoặc total inference time so với iterative autoregressive rollout ở same requested horizons.
 
 Horizon candidates:
 
-\[
-H=\{50,100,200,500\}\;ms
-\]
+$$
+H=\{50,100,200,500\}\;\text{ms}
+$$
 
 sẽ được điều chỉnh theo dataset sample rate/bandwidth ở Step 2.
 
@@ -191,9 +191,9 @@ HGDO/UIO-derived features chỉ được giữ nếu tạo information gain sau 
 
 Predicted uncertainty có empirical calibration:
 
-\[
+$$
 P(Y\in CI_{1-\alpha})\approx1-\alpha.
-\]
+$$
 
 ### HYP-REL-02
 
@@ -203,11 +203,11 @@ Latent support/OOD score correlate với large prediction error và phát hiện
 
 Abstention cải thiện retained-set reliability:
 
-\[
+$$
 Error(\text{retained after abstention})
 <
 Error(\text{all predictions})
-\]
+$$
 
 với coverage được report cùng error.
 
@@ -217,7 +217,7 @@ với coverage được report cùng error.
 
 ### Working metric
 
-\[
+$$
 H_{\text{usable}}
 =
 H_{\text{accurate}}
@@ -229,7 +229,7 @@ H_{\text{accurate}}
 \tau_{\text{infer}}
 -
 \tau_{\text{effect}}.
-\]
+$$
 
 ### HYP-LAT-01
 
