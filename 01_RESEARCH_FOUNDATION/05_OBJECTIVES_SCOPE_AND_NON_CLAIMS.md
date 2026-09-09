@@ -4,7 +4,7 @@
 
 Xây dựng và đánh giá một **real-flight low-level dynamics World Model** có đầu vào khả dụng ở runtime, dự đoán được action-to-effect evolution trong nhiều horizon, đồng thời tối ưu trade-off:
 
-\[
+$$
 \boxed{
 \text{prediction accuracy}
 +
@@ -16,7 +16,7 @@ Xây dựng và đánh giá một **real-flight low-level dynamics World Model**
 +
 \text{reliability}
 }
-\]
+$$
 
 Thành công của project không được định nghĩa bằng việc dùng architecture mới nhất.
 
@@ -32,7 +32,7 @@ Train/validate/test bằng public **real UAV flight datasets**, không chỉ sim
 
 Không sử dụng future measurement mà deployment không thể biết.
 
-Ví dụ \(M^{actual}_{t+h}\) chỉ được dùng làm future input trong `oracle benchmark`, không làm primary deployable input nếu runtime chỉ biết command.
+Ví dụ $M^{actual}_{t+h}$ chỉ được dùng làm future input trong `oracle benchmark`, không làm primary deployable input nếu runtime chỉ biết command.
 
 ### OBJ-03 — Representation efficiency
 
@@ -42,23 +42,23 @@ Ví dụ \(M^{actual}_{t+h}\) chỉ được dùng làm future input trong `orac
 
 Mô hình hóa:
 
-\[
+$$
 U^{cmd}\rightarrow M^{actual}\rightarrow X.
-\]
+$$
 
 ### OBJ-05 — Structured nominal + learned residual
 
 Đánh giá:
 
-\[
+$$
 f=f_{\text{explicit}}+r_\theta
-\]
+$$
 
 với explicit candidates được chọn từ system identification/symbolic methods.
 
 ### OBJ-06 — Multi-horizon prediction
 
-Report \(E(h)\) theo horizon, không chỉ one-step.
+Report $E(h)$ theo horizon, không chỉ one-step.
 
 ### OBJ-07 — Reliability
 
@@ -77,7 +77,7 @@ Measure params, model bytes, MACs/FLOPs, preprocessing latency, inference mean/p
 - motor/actuator behavior khi dataset hỗ trợ;
 - IMU/state/motor/control representation;
 - time synchronization and causal preprocessing;
-- \(SO(3)\)/frame canonicalization;
+- $SO(3)$/frame canonicalization;
 - spectral/system identification;
 - compact neural temporal models;
 - sparse/symbolic nominal models;
@@ -114,9 +114,9 @@ TCN [SRC-032](sources/SOURCE_REGISTRY.md#src-032), Mamba [SRC-014](sources/SOURC
 
 ### NC-03 — Không gọi residual là wind nếu không có wind ground truth
 
-\[
+$$
 r\neq W
-\]
+$$
 
 trừ khi experiment/data contract cho phép inference đó.
 
@@ -126,7 +126,7 @@ Host benchmark chỉ được gọi `HOST_INFERENCE_LATENCY`. Embedded/onboard c
 
 ### NC-05 — Không claim improved real-world control
 
-Offline real-flight predictive validity \(\neq\) closed-loop real-world control improvement.
+Offline real-flight predictive validity $\neq$ closed-loop real-world control improvement.
 
 ### NC-06 — Không claim causality từ observational dataset
 
