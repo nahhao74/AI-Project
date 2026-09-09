@@ -89,9 +89,9 @@ Eschmann et al. 2024 xác định motor delays là low-level detail thường b�
 
 Đây là nguồn trực tiếp cho:
 
-\[
+$$
 U^{cmd}\rightarrow M^{actual}\rightarrow X.
-\]
+$$
 
 ### Nano-drone benchmark 2026
 
@@ -157,9 +157,9 @@ Cascaded INDI sử dụng measured acceleration/incremental control effectivenes
 
 Use trong project là candidate incremental representation:
 
-\[
+$$
 \Delta \dot X\approx G_t\Delta U+d_t,
-\]
+$$
 
 không phải lấy INDI làm controller của Pipeline 2.
 
@@ -183,11 +183,11 @@ Một paper available online 2026 sử dụng 1,750 real free-flight missions v�
 
 SINDYc mở rộng sparse identification sang systems có control/external input [SRC-025](sources/SOURCE_REGISTRY.md#src-025):
 
-\[
+$$
 \dot X=\Theta(X,U)\Xi,
-\]
+$$
 
-với \(\Xi\) sparse. E-SINDy dùng bagging để tăng robustness với noisy/limited data và tạo inclusion probabilities [SRC-026](sources/SOURCE_REGISTRY.md#src-026). Symbolic regression đã được áp dụng cho quadrotor dynamics [SRC-027](sources/SOURCE_REGISTRY.md#src-027).
+với $\Xi$ sparse. E-SINDy dùng bagging để tăng robustness với noisy/limited data và tạo inclusion probabilities [SRC-026](sources/SOURCE_REGISTRY.md#src-026). Symbolic regression đã được áp dụng cho quadrotor dynamics [SRC-027](sources/SOURCE_REGISTRY.md#src-027).
 
 **Conclusion:** symbolic discovery là candidate tốt cho explicit nominal core nhưng không thể là novelty chỉ vì “symbolic UAV”. Contribution phải nằm ở việc **hybridize explicit core với compact temporal residual và chứng minh complexity reduction**.
 
@@ -223,7 +223,7 @@ Do đó nên dùng thuật ngữ **low-level dynamics Action-to-Effect World Mod
 
 Literature đã làm tốt:
 
-\[
+$$
 \text{multi-step}
 +
 \text{temporal networks}
@@ -233,13 +233,13 @@ Literature đã làm tốt:
 \text{wind adaptation}
 +
 \text{uncertainty models},
-\]
+$$
 
 nhưng evidence vẫn phân mảnh giữa actuation, physical dynamics, disturbance, compute và reliability.
 
 Research opportunity của project là kiểm tra một structured decomposition trong real-flight setting:
 
-\[
+$$
 \boxed{
 \text{canonical data}
 \rightarrow
@@ -253,11 +253,11 @@ Research opportunity của project là kiểm tra một structured decomposition
 +
 \text{uncertainty/support}
 }
-\]
+$$
 
 và đánh giá bằng:
 
-\[
+$$
 \boxed{
 \text{accuracy}+
 \text{whole-flight generalization}+
@@ -265,6 +265,6 @@ và đánh giá bằng:
 \text{complexity}+
 \text{calibration}
 }
-\]
+$$
 
 Không thành phần nào ở trên được coi là novel riêng lẻ. Novelty candidate là **problem formulation + decomposition + evidence-driven model simplification + deployment-relevant evaluation**, nếu experiment sau này thực sự ủng hộ.
