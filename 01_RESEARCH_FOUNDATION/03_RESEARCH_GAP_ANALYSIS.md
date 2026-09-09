@@ -23,9 +23,9 @@ Không dùng formulation kiểu “chưa ai kết hợp A+B+C” nếu không gi
 
 Raw world coordinates/quaternion đưa nuisance degrees of freedom vào model:
 
-$$
+```math
 (x,y,\psi)
-$$
+```
 
 có thể thay đổi dù local physical situation tương đương.
 
@@ -35,9 +35,9 @@ có thể thay đổi dù local physical situation tương đương.
 - relative position/velocity targets;
 - relative rotation:
 
-$$
+```math
 \Delta R_h=R_t^\top R_{t+h}
-$$
+```
 
 - $SO(3)$ log-map output;
 - gravity vector in body frame.
@@ -46,11 +46,11 @@ $$
 
 Compare fixed parameter budgets:
 
-$$
+```math
 \text{raw representation}
 \quad vs\quad
 \text{canonical representation}.
-$$
+```
 
 Gap được hỗ trợ nếu canonical form đạt lower error hoặc same error với model nhỏ hơn/nhanh hơn.
 
@@ -69,27 +69,27 @@ Gap được hỗ trợ nếu canonical form đạt lower error hoặc same erro
 
 Offline dynamics benchmark có thể sử dụng future actual motor sequence:
 
-$$
+```math
 M^{actual}_{t:t+H}
-$$
+```
 
 nhưng runtime planner thường chỉ biết:
 
-$$
+```math
 U^{cmd}_{t:t+H}.
-$$
+```
 
 Điều này tạo `oracle-actuation gap`.
 
 ### Candidate improvement
 
-$$
+```math
 U^{cmd}
 \xrightarrow{A_\phi}
 \hat M^{actual}
 \xrightarrow{F_\theta}
 \hat X.
-$$
+```
 
 ### Core comparison
 
@@ -111,20 +111,20 @@ Hybrid RNN, NeuroBEM và PI-TCN cho thấy structure + learning có thể outper
 
 Pure NN phải học lại cả:
 
-$$
+```math
 \text{simple local coupling}
 +
 \text{memory/nonlinearity/disturbance}.
-$$
+```
 
 ### Candidate improvement
 
-$$
+```math
 \dot X=
 f_{\text{explicit}}(X,U)
 +
 r_\theta(H_t).
-$$
+```
 
 Candidates cho $f_{\text{explicit}}$:
 
@@ -192,7 +192,7 @@ Long-horizon compounding error đã được phân tích trực tiếp [SRC-007]
 
 Direct multi-horizon output:
 
-$$
+```math
 z_t
 \rightarrow
 [
@@ -201,7 +201,7 @@ z_t
 \hat X_{H200},
 \hat X_{H500}
 ]
-$$
+```
 
 hoặc direct future sequence.
 
@@ -246,9 +246,9 @@ World-model survey nhấn mạnh distribution shift, uncertainty calibration và
 
 Output:
 
-$$
+```math
 (\mu_h,\Sigma_h,S_h)
-$$
+```
 
 với $S_h$ là empirical support/OOD status.
 
@@ -278,7 +278,7 @@ Motor delay matters [SRC-009](sources/SOURCE_REGISTRY.md#src-009); embedded infe
 
 Định nghĩa working metric:
 
-$$
+```math
 H_{\text{usable}}
 =
 H_{\text{accurate}}
@@ -290,7 +290,7 @@ H_{\text{accurate}}
 \tau_{\text{inference}}
 -
 \tau_{\text{act/effect}}.
-$$
+```
 
 Đây là **project metric proposal**, không claim là standardized literature metric.
 
