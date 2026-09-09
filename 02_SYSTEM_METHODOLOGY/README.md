@@ -1,6 +1,6 @@
 # Step 2 — System Methodology
 
-**Methodology status:** `COMPLETE_V1`  
+**Methodology status:** `COMPLETE_V1.1`  
 **Evidence cutoff:** 2026-09-09  
 **Authority:** Step 2 defines the research execution contract; it does **not** select a final World Model architecture.
 
@@ -48,18 +48,19 @@ The oracle is an information upper bound, not a deployable primary model.
 ```text
 L0  Source identity & provenance
 L1  Timestamp / clock / causality audit
-L2  Frame, unit & geometry canonicalization
-L3  Runtime-valid filtering & missing-data handling
-L4  Spectral / correlation / system-ID diagnostics
-L5  Explicit actuator / nominal-model candidates
-L6  Compact temporal residual candidates
-L7  Multi-horizon decoding
-L8  Uncertainty / support / abstention
-L9  End-to-end latency & compute accounting
-L10 Whole-flight / regime-OOD verification
+L2  Dependency graph validity (DAG / Tarjan / peeling)
+L3  Frame, unit & geometry canonicalization
+L4  Runtime-valid filtering & missing-data handling
+L5  Spectral / time-frequency / low-rank diagnostics
+L6  Explicit actuator / nominal / reduced-order candidates
+L7  Compact temporal residual candidates
+L8  Multi-horizon decoding
+L9  Uncertainty / support / abstention
+L10 End-to-end latency & compute accounting
+L11 Whole-flight / regime-OOD verification
 ```
 
-FFT/Welch/coherence are primarily **offline diagnostics** for bandwidth and memory selection; they are not automatically runtime neural features.
+FFT/Welch/coherence, wavelet and Hankel/SVD are primarily **offline diagnostics** for bandwidth, transient structure, effective rank and model-order selection; they are not automatically runtime neural features.
 
 ## 4. Dataset roles
 
@@ -98,7 +99,15 @@ Heading-relative translation, relative $SO(3)$ rotation and explicit frame/unit 
 
 ### MD-05 — Complexity reduction is measured end-to-end
 
-A hybrid method is not lighter merely because the neural network is smaller. Preprocessing, explicit/observer computation and postprocessing all count.
+A hybrid method is not lighter merely because the neural network is smaller. Preprocessing, explicit/observer/lifting computation and postprocessing all count.
+
+### MD-06 — Effective model order precedes arbitrary latent size
+
+Hankel/SVD, N4SID/ERA and related subspace diagnostics are used to generate candidate dynamic orders before a latent dimension is frozen.
+
+### MD-07 — Algorithm activation is evidence-gated
+
+Each candidate has a layer, failure mode, experiment and rejection rule. See `09_ALGORITHM_PLACEMENT_AND_ACTIVATION_POLICY.md`.
 
 ## 6. Document map
 
@@ -112,9 +121,12 @@ A hybrid method is not lighter merely because the neural network is smaller. Pre
 | Experiment strategy | `06_EXPERIMENTAL_STRATEGY.md` |
 | Ablation ladder | `07_ABLATION_STRATEGY.md` |
 | Validation/decision states | `08_VALIDATION_AND_ACCEPTANCE_PLAN.md` |
+| Algorithm placement/activation | `09_ALGORITHM_PLACEMENT_AND_ACTIVATION_POLICY.md` |
 | Data strategy | `data_strategy/` |
 | Preprocessing strategy | `preprocessing_strategy/` |
+| Structured low-rank/time-frequency | `preprocessing_strategy/STRUCTURED_LOW_RANK_AND_TIME_FREQUENCY_PLAN.md` |
 | Modeling strategy | `modeling_strategy/` |
+| Reduced-order/operator/reservoir | `modeling_strategy/REDUCED_ORDER_OPERATOR_AND_RESERVOIR_PLAN.md` |
 | Experiment contracts | `experiment_design/` |
 | Methodology sources | `sources/METHODOLOGY_SOURCE_REGISTRY.md` |
 
@@ -126,9 +138,13 @@ FINAL_HISTORY_LENGTH      = NOT_SELECTED
 FINAL_FILTER_CUTOFFS      = NOT_SELECTED
 FINAL_ROTATION_REP        = NOT_SELECTED
 WHITENING                 = NOT_SELECTED
+LOW_RANK_DENOISING        = NOT_SELECTED
 VARX_ORDER                = NOT_SELECTED
+TLS_WEIGHTING             = NOT_SELECTED
+N4SID_ORDER               = NOT_SELECTED
 SYMBOLIC_LIBRARY          = NOT_SELECTED
-TCN / GRU / MAMBA         = NOT_SELECTED
+KOOPMAN_LIFTING           = NOT_SELECTED
+TCN / GRU / ESN / MAMBA   = NOT_SELECTED
 HGDO / UIO                = NOT_SELECTED
 UNCERTAINTY / OOD METHOD  = NOT_SELECTED
 TARGET_HARDWARE           = NOT_SELECTED
