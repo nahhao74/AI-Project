@@ -25,9 +25,9 @@ RNN/hybrid models đã được dùng để dự đoán quadrotor nhiều bướ
 
 Vì vậy project không được claim novelty từ:
 
-\[
+$$
 (X,U)\rightarrow X_{future}
-\]
+$$
 
 hoặc chỉ từ việc đổi RNN sang TCN/Mamba.
 
@@ -41,11 +41,11 @@ System identification trên quadrotor chỉ ra motor delay thường bị bỏ q
 
 Đây là nền tảng cho formulation:
 
-\[
+$$
 U^{cmd}\rightarrow M^{actual}\rightarrow X_{future}
-\]
+$$
 
-thay vì coi \(U^{cmd}\) là tác động vật lý tức thời.
+thay vì coi $U^{cmd}$ là tác động vật lý tức thời.
 
 ### 2.4 Reliability và compute là một phần của World Model dùng cho Physical AI
 
