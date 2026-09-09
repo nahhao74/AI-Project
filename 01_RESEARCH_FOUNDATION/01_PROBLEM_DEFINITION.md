@@ -4,9 +4,9 @@
 
 Một UAV dynamics World Model dùng cho planning/control phải trả lời câu hỏi mạnh hơn “state tiếp theo là gì?”. Với action $U$, điều downstream controller thực sự cần là:
 
-$$
+```math
 \text{What physical effect will this command cause, when will it occur, and how reliable is the prediction?}
-$$
+```
 
 World-model literature cho Physical AI định nghĩa world model như một learned predictive representation phục vụ decision-making, đồng thời chỉ ra rằng long-horizon error, uncertainty, planner exploitation và real-time constraints là các vấn đề deployment quan trọng [SRC-001](sources/SOURCE_REGISTRY.md#src-001).
 
@@ -16,7 +16,7 @@ Trong phạm vi project này, bài toán được giới hạn ở **low-level m
 
 Một learned dynamics model thường có dạng:
 
-$$
+```math
 \hat X_{t+1:t+H}
 =
 F_\theta
@@ -24,7 +24,7 @@ F_\theta
 X_{t-L:t},
 U_{t:t+H-1}
 \right).
-$$
+```
 
 Formulation này đã được nghiên cứu nhiều năm. Pelican/RNN work đã làm multi-step flight prediction trên dữ liệu thật [SRC-002](sources/SOURCE_REGISTRY.md#src-002), [SRC-003](sources/SOURCE_REGISTRY.md#src-003); End2End-TCN đưa future control sequence vào temporal network [SRC-004](sources/SOURCE_REGISTRY.md#src-004); Rao et al. phân tích architecture/history/multi-step loss và decoupled prediction [SRC-007](sources/SOURCE_REGISTRY.md#src-007).
 
@@ -34,13 +34,13 @@ Vì vậy vấn đề không phải thiếu một function approximator cho $F$.
 
 Một planner biết command sẽ gửi:
 
-$$
+```math
 U^{cmd}_{t:t+H}
-$$
+```
 
 nhưng physical plant chịu tác động qua actuator:
 
-$$
+```math
 U^{cmd}
 \rightarrow
 \text{ESC/motor/propeller}
@@ -50,7 +50,7 @@ M^{actual}
 F,\tau
 \rightarrow
 X.
-$$
+```
 
 Eschmann et al. chỉ ra motor delays thường bị bỏ qua dù quan trọng đối với end-to-end control, và đề xuất data-driven identification của first-order motor delay từ proprioceptive flight data [SRC-009](sources/SOURCE_REGISTRY.md#src-009).
 
@@ -58,9 +58,9 @@ Nano-drone benchmark 2026 còn thực hiện explicit motor–acceleration tempo
 
 Do đó assumption:
 
-$$
+```math
 U^{cmd}(t)\equiv U^{physical}(t)
-$$
+```
 
 không được xem là mặc định hợp lệ.
 
@@ -68,7 +68,7 @@ không được xem là mặc định hợp lệ.
 
 Có lợi không nếu factorize:
 
-$$
+```math
 \boxed{
 U^{cmd}
 \rightarrow
@@ -76,13 +76,13 @@ U^{cmd}
 \rightarrow
 \hat X_{future}
 }
-$$
+```
 
 thay vì direct:
 
-$$
+```math
 U^{cmd}\rightarrow\hat X_{future}?
-$$
+```
 
 ## 4. Problem P2 — Model có thể phí capacity để học invariance do representation kém
 
@@ -102,19 +102,19 @@ Wind-estimation experiments cũng cho thấy evaluation bằng random samples c�
 
 Có thể chuyển một phần complexity khỏi neural network bằng:
 
-$$
+```math
 \text{raw coordinates}
 \rightarrow
 \text{geometry-canonical representation}
-$$
+```
 
 và đạt:
 
-$$
+```math
 E_{\text{small canonical model}}
 \le
 E_{\text{larger raw model}}?
-$$
+```
 
 ## 5. Problem P3 — Pure neural model có thể học lại dynamics đơn giản
 
@@ -124,13 +124,13 @@ Sparse system discovery như SINDYc có khả năng tìm governing equations v�
 
 Vấn đề cần kiểm tra là:
 
-$$
+```math
 \dot X
 =
 f_{\text{explicit}}(X,U)
 +
 r_\theta(H_t).
-$$
+```
 
 Nếu $f_{\text{explicit}}$ giải thích đủ phần nominal dynamics, neural network chỉ cần học residual có thể nhỏ hơn và rẻ hơn.
 
@@ -144,15 +144,15 @@ Một wind-conditioned Mamba study 2026 dùng sequence length 32 cho thấy base
 
 Do đó:
 
-$$
+```math
 \text{parameter count}\not\Rightarrow\text{runtime latency}.
-$$
+```
 
 ### Proposed scientific problem
 
 Architecture selection phải dựa trên Pareto:
 
-$$
+```math
 \min
 \{
 E(H),\;
@@ -160,7 +160,7 @@ T_{p99},\;
 Memory,\;
 MACs
 \}
-$$
+```
 
 thay vì chọn backbone mới nhất.
 
@@ -168,7 +168,7 @@ thay vì chọn backbone mới nhất.
 
 External deviation có thể đến từ:
 
-$$
+```math
 d=
 d_{wind}
 +
@@ -181,15 +181,15 @@ d_{actuator}
 d_{model}
 +
 d_{sensor}.
-$$
+```
 
 VID cung cấp explicit 6-axis external-force ground truth trong một số sequence và target/actual motor RPM [SRC-022](sources/SOURCE_REGISTRY.md#src-022), [SRC-023](sources/SOURCE_REGISTRY.md#src-023). AMOVFLY cung cấp hơn 270 flights/46 h cùng wind speed/direction nhưng không có cùng actuator richness như VID/Pelican [SRC-024](sources/SOURCE_REGISTRY.md#src-024).
 
 Vì vậy:
 
-$$
+```math
 \text{unknown residual}\neq \text{wind}
-$$
+```
 
 trừ khi có supervision/physical assumptions đủ mạnh.
 
@@ -199,15 +199,15 @@ Deterministic model vẫn trả output ở OOD states. World-model survey 2026 n
 
 Project cần tách:
 
-$$
+```math
 \text{prediction}
-$$
+```
 
 khỏi:
 
-$$
+```math
 \text{prediction is supported/reliable}.
-$$
+```
 
 ## 9. Problem P7 — Evaluation split có thể tạo kết quả giả lạc quan
 
@@ -219,9 +219,9 @@ Do temporal windows chồng lấn mạnh, random-window split có nguy cơ leaka
 
 Primary scientific evaluation phải dùng:
 
-$$
+```math
 \boxed{\text{whole-flight / whole-trajectory held-out}}
-$$
+```
 
 và thêm regime-OOD khi data cho phép.
 
@@ -239,7 +239,7 @@ Project sẽ kiểm tra liệu một **real-flight Action-to-Effect World Model*
 
 Formulation làm việc:
 
-$$
+```math
 \begin{aligned}
 \hat M_{t:t+H} &= A_\phi(H_t,U^{cmd}_{t:t+H}),\\
 \hat f^{nom} &= G_\psi(X_t,\hat M_t),\\
@@ -247,6 +247,6 @@ $$
 \hat X_{t:t+H} &= \mathcal{I}(\hat f^{nom}+\hat r),\\
 (\Sigma,S) &= Q_\eta(H_t,\hat X).
 \end{aligned}
-$$
+```
 
 Các hàm $A,G,R,Q$ **chưa được freeze architecture** trong Step 1.
