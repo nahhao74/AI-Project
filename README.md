@@ -1,26 +1,32 @@
 # AI-Project — Real-Flight Action-to-Effect World Modeling
 
-Repository này lưu hồ sơ nghiên cứu và thực nghiệm cho một **World Model động lực học UAV dựa trên dữ liệu bay thật**, với trọng tâm không chỉ là dự đoán trạng thái tương lai mà còn mô hình hóa **đường truyền từ lệnh điều khiển đến tác động vật lý**, độ trễ, phần động lực học có thể mô tả tường minh, phần residual cần học bằng AI, và độ tin cậy của dự đoán.
+Repository này lưu hồ sơ nghiên cứu và thực nghiệm cho một **World Model động lực học UAV dựa trên dữ liệu bay thật**, với trọng tâm không chỉ là dự đoán trạng thái tương lai mà còn mô hình hóa **đường truyền từ lệnh điều khiển đến tác động vật lý**, độ trễ, phần động lực học có thể mô tả tường minh/reduced-order, phần residual cần học bằng AI, và độ tin cậy của dự đoán.
 
 ## Trạng thái hiện tại
 
 ```text
-PROJECT_STATE                         = STEP_2_SYSTEM_METHODOLOGY_COMPLETE
-STEP_1_RESEARCH_FOUNDATION           = COMPLETE_V1
-STEP_2_SYSTEM_METHODOLOGY            = COMPLETE_V1
-STEP_3_TECHNICAL_MODEL_DESIGN        = NOT_STARTED
+PROJECT_STATE                         = READY_FOR_EXP_000_SOURCE_DATA_AUDIT
+STEP_1_RESEARCH_FOUNDATION           = COMPLETE_V1.1
+STEP_2_SYSTEM_METHODOLOGY            = COMPLETE_V1.1
+STEP_3_TECHNICAL_MODEL_DESIGN        = NOT_STARTED_ENTRY_CRITERIA_DEFINED
 STEP_4_VERIFICATION_AND_RESULTS       = NOT_STARTED
+
+EXP_000_SOURCE_SCHEMA_AUDIT          = NOT_EXECUTED
+EXP_010_BASELINE_REPRODUCTION        = NOT_EXECUTED
 
 WORLD_MODEL_ARCHITECTURE_SELECTED    = false
 TEMPORAL_BACKBONE_SELECTED           = false
 TCN_SELECTED                         = false
 MAMBA_SELECTED                       = false
+ESN_SELECTED                         = false
+KOOPMAN_SELECTED                     = false
 SYMBOLIC_CORE_SELECTED               = false
 DISTURBANCE_OBSERVER_SELECTED        = false
 WHITENING_SELECTED                   = false
+LOW_RANK_DENOISING_SELECTED          = false
 ```
 
-Step 1 xác định **tại sao** project đáng nghiên cứu. Step 2 xác định **cách kiểm tra** các giả thuyết mà không làm rò rỉ tương lai, không đánh đồng command với physical actuation và không chọn thuật toán theo xu hướng. Không thuật toán nào được xem là thiết kế cuối cho tới khi data audit, benchmark reproduction và ablation tạo đủ bằng chứng.
+Step 1 xác định **tại sao** project đáng nghiên cứu. Step 2 xác định **cách kiểm tra và quyết định** mà không làm rò rỉ tương lai, không đánh đồng command với physical actuation và không chọn thuật toán theo xu hướng. Step 3 đã có entry contract nhưng chưa bắt đầu freeze technical design; việc đó chỉ được thực hiện sau empirical gates từ EXP-000/010 và các audit representation/timing phù hợp.
 
 ## Research formulation hiện tại
 
@@ -42,7 +48,7 @@ với:
 - $\Sigma$: uncertainty được hiệu chuẩn;
 - $S$: support/OOD indicator.
 
-Project **không mặc định** rằng `command = physical actuation`, không mặc định rằng mọi residual là gió, và không mặc định rằng neural network phải học toàn bộ dynamics.
+Project **không mặc định** rằng `command = physical actuation`, không mặc định rằng mọi residual là gió, không mặc định rằng neural network phải học toàn bộ dynamics, và không mặc định rằng latent/model order phải được chọn từ precedent thay vì từ data.
 
 ## Tài liệu Step 1 — Research Foundation
 
@@ -54,6 +60,7 @@ Project **không mặc định** rằng `command = physical actuation`, không m
 - [Objectives, Scope and Non-Claims](01_RESEARCH_FOUNDATION/05_OBJECTIVES_SCOPE_AND_NON_CLAIMS.md)
 - [Feasibility and Expected Value](01_RESEARCH_FOUNDATION/06_FEASIBILITY_AND_EXPECTED_VALUE.md)
 - [Baseline and Proposed Contributions](01_RESEARCH_FOUNDATION/07_BASELINE_AND_PROPOSED_CONTRIBUTIONS.md)
+- [Extended Reduced-Order / Operator Research Synthesis](01_RESEARCH_FOUNDATION/08_EXTENDED_RESEARCH_SYNTHESIS.md)
 - [Source Registry](01_RESEARCH_FOUNDATION/sources/SOURCE_REGISTRY.md)
 
 ## Tài liệu Step 2 — System Methodology
@@ -67,16 +74,25 @@ Project **không mặc định** rằng `command = physical actuation`, không m
 - [Experimental Strategy](02_SYSTEM_METHODOLOGY/06_EXPERIMENTAL_STRATEGY.md)
 - [Ablation Strategy](02_SYSTEM_METHODOLOGY/07_ABLATION_STRATEGY.md)
 - [Validation and Acceptance Plan](02_SYSTEM_METHODOLOGY/08_VALIDATION_AND_ACCEPTANCE_PLAN.md)
+- [Algorithm Placement and Activation Policy](02_SYSTEM_METHODOLOGY/09_ALGORITHM_PLACEMENT_AND_ACTIVATION_POLICY.md)
 - [Data Contract](02_SYSTEM_METHODOLOGY/data_strategy/DATA_CONTRACT.md)
 - [Dataset Selection Plan](02_SYSTEM_METHODOLOGY/data_strategy/DATASET_SELECTION_PLAN.md)
 - [Train/Validation/Test Policy](02_SYSTEM_METHODOLOGY/data_strategy/TRAIN_VALIDATION_TEST_POLICY.md)
 - [Preprocessing Strategy](02_SYSTEM_METHODOLOGY/preprocessing_strategy/README.md)
+- [Structured Low-Rank and Time-Frequency Plan](02_SYSTEM_METHODOLOGY/preprocessing_strategy/STRUCTURED_LOW_RANK_AND_TIME_FREQUENCY_PLAN.md)
 - [Model Selection and Hybrid Plan](02_SYSTEM_METHODOLOGY/modeling_strategy/MODEL_SELECTION_AND_HYBRID_PLAN.md)
+- [Reduced-Order, Operator and Reservoir Plan](02_SYSTEM_METHODOLOGY/modeling_strategy/REDUCED_ORDER_OPERATOR_AND_RESERVOIR_PLAN.md)
 - [Uncertainty/OOD Plan](02_SYSTEM_METHODOLOGY/modeling_strategy/UNCERTAINTY_OOD_AND_SUPPORT_PLAN.md)
 - [Experiment Registry](02_SYSTEM_METHODOLOGY/experiment_design/EXPERIMENT_REGISTRY.md)
 - [Hypothesis-to-Experiment Matrix](02_SYSTEM_METHODOLOGY/experiment_design/HYPOTHESIS_TO_EXPERIMENT_MATRIX.md)
 - [Acceptance Criteria](02_SYSTEM_METHODOLOGY/experiment_design/ACCEPTANCE_CRITERIA.md)
 - [Methodology Source Registry](02_SYSTEM_METHODOLOGY/sources/METHODOLOGY_SOURCE_REGISTRY.md)
+
+## Step 3 — Technical Model Design
+
+- [Step 3 Entry Contract](03_TECHNICAL_MODEL_DESIGN/README.md)
+
+Step 3 will freeze exact sample rate, history/receptive field, feature contract, filter coefficients, effective model order, temporal architecture, losses, calibration method and deployment configuration only after empirical evidence allows those decisions.
 
 ## Nguyên tắc nghiên cứu
 
