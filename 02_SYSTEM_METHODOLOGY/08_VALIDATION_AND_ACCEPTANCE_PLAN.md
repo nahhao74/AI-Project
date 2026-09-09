@@ -38,7 +38,7 @@ By horizon/variable:
 - multi-horizon curves, not only one-step score.
 
 ```math
-e_R=\cos^{-1}\!\left(\frac{\operatorname{tr}(R_{true}^\top R_{pred})-1}{2}\right).
+e_R=\cos^{-1}\!\left(\frac{\mathrm{tr}(R_{true}^\top R_{pred})-1}{2}\right).
 ```
 
 ## 4. Reliability metrics
