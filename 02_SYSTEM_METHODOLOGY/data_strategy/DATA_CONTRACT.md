@@ -172,10 +172,10 @@ A dedicated calibration split may be used for uncertainty calibration if frozen 
 
 ## 10. Statistical unit
 
-Reduce window errors to flight level first:
+Reduce window errors to flight level first. Let $\mathrm{Agg}$ denote the declared per-flight aggregation function (for example, mean, median, RMSE, or another prospectively frozen summary):
 
 ```math
-E_i(M)=\operatorname{aggregate}_{w\in flight_i}e_w(M).
+E_i(M)=\mathrm{Agg}_{w\in flight_i}\,e_w(M).
 ```
 
 Flights/groups, not windows, are the primary resampling unit.
